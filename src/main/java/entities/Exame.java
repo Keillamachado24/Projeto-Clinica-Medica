@@ -5,8 +5,7 @@ public class Exame {
     private  int idConsulta; // do id da consulta
     private String tipoExame; // vai guarda o tipo do exame
     private String dataExame; // vai guarda a data que foi realizado o exame
-    private String resultadoExame; // vai ser para guarda o resultado do exame
-    private String profissionalResponsavel; // guarda o nome do responsavel que fez o exame/ o medico
+    private String resultado; // vai ser para guarda o resultado do exame
     private String status;// vai guarda a situaçao do exame
     private  double valor; // guarda o valor que e do exame
 
@@ -14,12 +13,11 @@ public class Exame {
         // esse construtor vazio ele vai servi para permitir criar um objeto sem informa os seus dados imetiatamente
     }
 
-    public Exame(int idConsulta, String tipoExame, String dataExame, String resultadoExame, String profissionalResponsavel, String status, double valor ){
+    public Exame(int idConsulta, String tipoExame, String dataExame, String resultado, String status, double valor ){
         this.idConsulta = idConsulta;
         this.tipoExame = tipoExame;
         this.dataExame = dataExame; // construtor que tem todas as informaçoes
-        this.resultadoExame = resultadoExame;
-        this.profissionalResponsavel = profissionalResponsavel;
+        this.resultado = resultado;
         this.status = status;
         this.valor = valor;
     }
@@ -56,21 +54,14 @@ public class Exame {
         this.dataExame = dataExame;
     }
 
-    public String getResultadoExame() {
-        return resultadoExame;
+    public String getResultado() {
+        return resultado;
     }
 
-    public void setResultadoExame(String resultadoExame) {
-        this.resultadoExame = resultadoExame;
+    public void setResultado(String resultado) {
+        this.resultado = resultado;
     }
 
-    public String getProfissionalResponsavel() {
-        return profissionalResponsavel;
-    }
-
-    public void setProfissionalResponsavel(String profissionalResponsavel) {
-        this.profissionalResponsavel = profissionalResponsavel;
-    }
 
     public String getStatus() {
         return status;
