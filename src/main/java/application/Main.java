@@ -1,25 +1,16 @@
 package application;
 
-import java.sql.Connection;
+import dao.ConsultaDao;
+import entities.Consulta;
 
-import db.Db;
+import java.time.LocalDateTime;
 
 public class Main {
-
     public static void main(String[] args) {
+        ConsultaDao dao = new ConsultaDao();
 
-        Connection conn = null;
+        dao.deleteById(13);
 
-        try {
-            conn = Db.getConnection();
-            System.out.println("Conexão realizada com sucesso!");
-        }
-        catch (Exception e) {
-            System.out.println("Erro ao conectar:");
-            System.out.println(e.getMessage());
-        }
-        finally {
-            Db.closeConnection();
-        }
+        System.out.println("Consulta deletada!");
     }
 }
