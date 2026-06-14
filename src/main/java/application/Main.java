@@ -223,7 +223,164 @@ public class Main extends Application {
     }
 
     private VBox criarPainelUsuario() {
-        return new VBox();
+// criar os campos do texto
+        txtIdUsuario = new TextField();
+        txtIdUsuario.setPromptText("ID do usuário");
+        txtIdUsuario.setEditable(false);
+        txtIdUsuario.setStyle("-fx-background-color: #e8e8e8;");
+
+        txtNome= new TextField();
+        txtNome.setPromptText("Nome");
+
+        txtTelefone = new TextField();
+        txtTelefone.setPromptText("Telefone");
+
+        txtCpf = new TextField();
+        txtCpf.setPromptText("Cpf");
+
+        txtEmail= new TextField();
+        txtEmail.setPromptText("Email");
+
+        txtCargo = new TextField();
+        txtCargo.setPromptText("Cargo");
+
+        txtSetor= new TextField();
+        txtSetor.setPromptText("Setor");
+
+        txtNivelAcesso= new TextField();
+        txtNivelAcesso.setPromptText("Nivel de Acesso");
+
+        //criar a tabela
+        tableUsuario = new TableView<>();
+
+        // criar as colunas desta tabela
+        TableColumn<Usuario,String> colId = new TableColumn<>("ID");
+
+        TableColumn<Usuario,String> colNome = new TableColumn<>("Nome");
+
+        TableColumn<Usuario,String> colCargo= new TableColumn<>("Cargo");
+
+        TableColumn<Usuario,String> colSetor = new TableColumn<>("Setor");
+
+       // configuração das colunas
+        colId.setCellValueFactory(cellData ->
+                new javafx.beans.property.SimpleStringProperty(String.valueOf
+                        (cellData.getValue().getIdUsuario())));
+
+        colNome
+                .setCellValueFactory(cellData ->
+                new javafx.beans.property.SimpleStringProperty(String.valueOf
+                        (cellData.getValue().getNome())));
+
+        colCargo.setCellValueFactory(cellData ->
+                new javafx.beans.property.SimpleStringProperty(String.valueOf
+                        (cellData.getValue().getCargo())));
+
+        colSetor.setCellValueFactory(cellData ->
+                new javafx.beans.property.SimpleStringProperty(String.valueOf
+                        (cellData.getValue().getSetor())));
+
+        // adicionar as colunas na tabela
+        tableUsuario.getColumns().addAll(colId,colNome,colCargo,colSetor);
+
+        tableUsuario.setPrefHeight(250);
+
+
+        //o clique da tabela para preencher os campos
+        tableUsuario.setOnMouseClicked( e ->{
+            Usuario usuario = tableUsuario.getSelectionModel().getSelectedItem();
+            if (usuario != null){
+
+                txtIdUsuario.setText(String.valueOf(usuario.getIdUsuario()));
+
+                txtNome.setText(usuario.getNome());
+                txtTelefone.setText(usuario.getTelefone());
+                txtCpf.setText(usuario.getCpf());
+                txtEmail.setText(usuario.getEmail());
+                txtCargo.setText(usuario.getCargo());
+                txtSetor.setText(usuario.getSetor());
+                txtNivelAcesso.setText(usuario.getNivelAcesso());
+
+            }
+        });
+
+        Button btnAdd = new Button("Salvar ");
+        Button btnEdit = new Button("Editar ");
+        Button btnDel = new Button("Deletar");
+
+        // vamos programar o botão Salvar
+         btnAdd.setOnAction( e ->{
+
+             try {
+                 Usuario usuario = new Usuario();
+
+                 usuario.setNome((txtNome.getText()));
+                 usuario.setTelefone((txtTelefone.getText()));
+                 usuario.setCpf((txtCpf.getText()));
+                 usuario.setEmail((txtEmail.getText()));
+                 usuario.setCargo((txtCargo.getText()));
+                 usuario.setSetor((txtSetor.getText()));
+                 usuario.setNivelAcesso((txtNivelAcesso.getText()));
+
+                 usuarioDao.insert(usuario);
+                 lblStatusGlobal.setText("Status: Usuario cadastrado!!");
+
+             } catch (Exception ex) {
+                 lblStatusGlobal.setText("Erro:" + ex.getMessage());
+             }
+
+         });
+
+         //programar o botão Editar
+        btnEdit.setOnAction(e ->{
+
+            try{
+                Usuario usuario = new Usuario();
+                usuario.setIdUsuario(
+                        Integer.parseInt(txtIdUsuario.getText()));
+
+                usuario.setNome((txtNome.getText()));
+                usuario.setTelefone((txtTelefone.getText()));
+                usuario.setCpf((txtCpf.getText()));
+                usuario.setEmail((txtEmail.getText()));
+                usuario.setCargo((txtCargo.getText()));
+                usuario.setSetor((txtSetor.getText()));
+                usuario.setNivelAcesso((txtNivelAcesso.getText()));
+
+                 usuarioDao.update(usuario);
+                lblStatusGlobal.setText("Status: Usuario Atualizado!!");
+
+            } catch (Exception ex) {
+                lblStatusGlobal.setText("Erro: "+ ex.getMessage());
+            }
+        });
+        // programar o botão Deletar
+        btnDel.setOnAction(e ->{
+            try{
+                usuarioDao.deleteById(Integer.parseInt(txtIdUsuario.getText()));
+
+                lblStatusGlobal.setText("Status : usuário removido!");
+            } catch (Exception ex) {
+
+                lblStatusGlobal.setText("Erro:"+ex.getMessage());
+            }
+        });
+        //criar a linha dos botões
+        HBox botoes = new HBox(10 ,btnAdd,btnEdit,btnDel);
+
+        // vamos fazer com que retorne o painel
+
+        return new VBox(8,
+                new Label("ID Usuario:"),txtIdUsuario,
+                new Label("Nome:"),txtNome,
+                new Label("Telefone"),txtTelefone,
+                new Label("Cpf:"),txtCpf,
+                new Label("Email"),txtEmail,
+                new Label ("Cargo"),txtCargo,
+                new Label ("Setor"),txtSetor,
+                new Label ("Nivel de Acesso"), txtNivelAcesso,
+                botoes,tableUsuario);
+
     }
 
     private VBox criarPainelExames() {
