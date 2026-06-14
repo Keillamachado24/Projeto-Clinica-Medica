@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import entities.Usuario;
 
 public class Main extends Application {
     //convertendo as datas
@@ -34,7 +35,12 @@ public class Main extends Application {
             txtEmailPaciente, txtDataNascimentoPaciente, txtContatoEmergenciaPaciente, txtIdEnderecoPaciente,txtIdPlanoPaciente;
     private TableView<Paciente> tablePaciente;
 
-    //ATRIBUTOS USUARIO EM BAIXO COLOCA O TABLEVIEW
+
+    private TextField txtIdUsuario,txtNome,txtTelefone,txtCpf,txtEmail,txtCargo;
+    private TextField txtSetor;
+    private TextField txtNivelAcesso;
+
+    private TableView<Usuario> tableUsuario;
 
     private TextField txtIdExame,txtIdConsultaExame,txtTipoExame,txtDataExame;
     private TextField txtResultado,txtStatusExame,txtValorExame;
